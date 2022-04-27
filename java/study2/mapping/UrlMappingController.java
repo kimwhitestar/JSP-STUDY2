@@ -35,7 +35,7 @@ public class UrlMappingController extends HttpServlet {
 
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
-		out.println("alert('콘솔창을 확인해 보세요...';");
+		out.println("alert('콘솔창을 확인해 보세요...');");
 /*컨트롤러서블릿(*.url) -> 컨트롤러서블릿(/url)로 이동 처리*/
 //		out.println("location.href='/WEB-INF/study2/mapping/urlMapping.jsp';");//GET방식 loation접근안됨
 		out.println("location.href='"+request.getContextPath()+"/study1/urlMapping';");//컨트롤러서블릿주소필요
