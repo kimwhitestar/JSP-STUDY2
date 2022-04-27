@@ -30,9 +30,9 @@ public class UrlMappingController2 extends HttpServlet {
 		System.out.println("com : " + com);
 
 		if (com.equals("urlMapping")) {
-			viewPage = "/WEB-INF/study1/urlMapping";
-		} else if (com.equals("...")) {
-			viewPage = "/WEB-INF/study1/urlMapping";
+			viewPage = "/study1/urlMapping";
+		} else if (com.equals("urlMappingList")) {
+			viewPage = "/study1/urlMappingList";
 		}
 		
 		RequestDispatcher dispatcher = request.getRequestDispatcher(viewPage);
