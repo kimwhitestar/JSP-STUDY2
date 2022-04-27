@@ -27,7 +27,7 @@ public class UrlController extends HttpServlet {
 		if (com.equals("urlMapping")) {
 			viewPage = "/WEB-INF/study2/mapping/urlMapping.jsp";
 		}
-		else if (com.equals("/urlMappingList")) {
+		else if (com.equals("urlMappingList")) {
 			
 			command = new UrlMappingListCommand(); 
 			command.execute(request, response);/*request객체에 dao에서 검색한 회원목록을 셋팅함*/
