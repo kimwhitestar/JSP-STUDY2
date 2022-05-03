@@ -25,8 +25,9 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/urlMapping">URL(Controller) 디렉토리패턴</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/el1.st">EL1표기연습</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/el2.st">EL2표기연습</a>
-			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl1.st">JSTL1연습</a>
-			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl2.st">JSTL2연습</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl1.st">JSTL Core연습</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl2.st">JSTL Function연습</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl3.st">JSTL Format연습</a>
 			    </div>
 			  </div>
       </li>
