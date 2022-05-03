@@ -29,6 +29,9 @@ public class StudyController extends HttpServlet {
 		else if (com.equals("jstl2")) {
 			viewPage += "/study2/el_JSTL/jstl2.jsp";
 		}
+		else if (com.equals("jstl3")) {
+			viewPage += "/study2/el_JSTL/jstl3.jsp";
+		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
