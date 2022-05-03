@@ -32,6 +32,16 @@ public class StudyController extends HttpServlet {
 		else if (com.equals("jstl3")) {
 			viewPage += "/study2/el_JSTL/jstl3.jsp";
 		}
+		//nav 메뉴에서 비밀번호 암호화 첫화면에 이동
+		else if (com.equals("shaPass")) {
+			viewPage += "/study2/sha/shaPass.jsp";
+		}
+		//암호화한 pwd를 갖고 이동
+		else if (com.equals("shaPassOk")) {
+			command = new ShaPassOkCommand();
+			command.execute(request, response);
+			viewPage += "/study2/sha/shaPass.jsp";
+		}
 		
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
