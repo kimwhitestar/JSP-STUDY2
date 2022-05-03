@@ -28,8 +28,15 @@
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl1.st">JSTL Core연습</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl2.st">JSTL Function연습</a>
 			      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl3.st">JSTL Format연습</a>
+			      <a class="dropdown-item" href="<%=request.getContextPath()%>/study2/shaPass.st">SHA암호화(단방향암호화:복호화안됨,문제성있다고함)</a>
 			    </div>
 			  </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%=request.getContextPath()%>/memberLogin.mbr">Login</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="<%=request.getContextPath()%>/memberJoin.mbr">Join</a>
       </li>
     </ul>
   </div>  
