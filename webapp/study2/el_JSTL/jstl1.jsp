@@ -108,7 +108,7 @@
 	<hr/>
 	<p>이중 루핑과 짝수홀수(begin:0 step:2(짝수)/begin:1 step:2(홀수)))</p>
 	<!-- i=2,4,8,10,12(짝수) ... -->
-	<c:forEach var="i" begin="2" end="25" step="2">
+	<c:forEach var="i" begin="2" end="8" step="2">
 		<!-- i=1,2,3,4,5(정수) ... -->
 		<c:forEach var="j" begin="1" end="10">
 			${i} * ${j} = ${i * j}<br>
@@ -116,13 +116,27 @@
 	</c:forEach>
 	<hr/>
 <%
-	String hobbys = "낚시/TV/영화/수영/음악";
-	request.setAttribute("hobbys", hobbys);
+	String hobbys = "TV/영화/수영/음악";
+	pageContext.setAttribute("hobbys", hobbys);
 %>
 	<p>토큰(특정기호값)을 이용한 분리 : forTokens</p>
-	<c:forTokens var="hobby" items="hobbys" delims="/">
-		${hobby} / &nbsp;
+	<c:forTokens var="hobby" items="hobbys" delims="/" >
+		<c:out value="${hobby }"/><br>
 	</c:forTokens>
+	
+<pre style='font-size:12pt'>
+<h4>기타 참조사항</h4>
+<b>지정한 곳으로 이동? location.href() / response.sendRedirect() /c :redirect</b>
+<%--jstl3 <c:redirect url="jstl3.st" /> --%>
+<%--naver <c:redirect url="www.naver.com"/>--%>
+<b>URL문 : 그림파일이나 외부파일을 불러올 수 있다</b>
+<div>그림1 : <img src="${ctxPath}/images/nimo.jpg" width="200px"/></div>
+<div>그림2 : <img src="images/nimo.jpg" width="200px"/></div>
+<div>그림3 : <c:url var="img1" value="${ctxPath}/images/nimo.jpg" /><img src="${img1}" width="200px" /></div>
+<b>import문(include와 같음) : Footer화일 삽입 테스트</b>
+ <c:import url="/include/footer.jsp"/>
+</pre>
+
 </div>
     <%@ include file="/include/footer.jsp" %>
 </body>

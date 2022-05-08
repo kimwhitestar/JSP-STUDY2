@@ -47,7 +47,6 @@ atom 변수의 값 : <%=atom %> / ${atom }
 		</c:if>
 	</c:forEach>
 	총 'o'문자의 개수 ? ${cnt}<br>
-
 5-3.atom변수에 기억되어 있는 값 중 뒤에서 처음 만나는 'o'문자의 위치는? <br>
 	<%=atom.lastIndexOf('o') %> / 
 	<c:forEach var="idx" begin="0" end="${fn:length(atom)-1}">
