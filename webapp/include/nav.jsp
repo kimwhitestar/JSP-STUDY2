@@ -47,6 +47,7 @@
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/study2/shaPass.st">SHA암호화(단방향암호화:복호화안됨,문제성있다고함)</a>
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch">ajax1연습(dispathcer로 jsp갈 곳 지정안함)</a>
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch2">ajax2연습(dispathcer로 jsp갈 곳 지정안함)</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch3">ajax3연습(dispathcer로 jsp갈 곳 지정안함)</a>
 		    </div>
 		</div>
       </li>
