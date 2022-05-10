@@ -37,8 +37,9 @@
 				data:			params,
 				contextType:	"application/json",
 				//charset:		"utf-8", //xml에서 설정했으면 생략
-				success:		function() {
+				success:		function(name) { //response로 앞에서 준 파라미터는 function함수의 파라미터로 받는다
 					alert("서버 비동기 요청,응답 성공");
+					alert("response로 받은 parameter 중 name : " + name);
 				},
 				error:			function() {
 					alert("서버 요청 실패~~")
