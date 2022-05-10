@@ -16,21 +16,27 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>	
     <script>
     	'use strict';
-    	function idCheck() {
+    	function idCheck1() {
     		//let mid = document.getElementById("mid").value;//html,jsp
     		//let mid = '${mid}';//jstl(모든 request parameter 문자는 default로 공백처리됨)
     		let mid = $("#mid").val();//jquery(ajax framework)
     		if (''==mid || ''==mid.trim()) {
     			alert('아이디를 입력하세요.');
-    			$("mid").focus();
+    			$("#mid").focus();
     			return false;
     		}
+    		
+    		let arr = [];
+    		arr.push('a');
+    		arr.push('b');
+    		arr.push('c');
+    		alert('arr.length='+arr.length);
     		
     		let params = {
     				mid: mid,
     				mid2: '',
-    				testMap: null,
-    		}
+    				testArr: arr,//배열로 넘기고 서블릿에서 getparametervalues배열로 받으면null처리된다
+			};
     		
     		//jquery함수
 			//$(document).ready(function() {
@@ -44,36 +50,34 @@
 				contextType:	"application/json",
 				//charset:		"utf-8", //xml에서 설정했으면 생략
 				success:		function(name) { //response로 앞에서 준 파라미터는 function함수의 파라미터로 받는다
-									alert("서버 비동기 요청,응답 성공1");
-									alert("response로 받은 parameter 중 name : " + name);
+	    							$("#demo").html(name);//$('#demo').innerHtml=name 와 같음
 				},
 				error:			function() {
-									alert("서버 요청 실패~~")
+									alert("서버 요청 실패~~");
 				}
 			});
     	}
     	
     	function idCheck2() {
     		let mid = $("#mid").val();
-    		if (""==mid) {
+    		if (''==mid) {
     			alert("아이디를 입력하세요");
     			$("#mid").focus();
     			return false;
     		}
-    		
-    		$.ajax(function() {
+
+    		$.ajax({
     			type: 		"post",
     			url: 		"${ctxPath}/ajaxIdSearch2",//서블릿에서 dispatcher로 이동할 jsp지정안함
     			data: 		{mid : mid},
 				//contextType:	"application/json",//생략가능(default ?)
 				//charset:		"utf-8", //xml에서 설정했으면 생략
     			success: 	function(resData) {
-    							alert("성공적으로 갔다왔음2");
     							$("#demo").html(resData);//$('#demo').innerHtml=resData 와 같음
     						},
-    						error: function() {
-    							alert("전송 실패~~")
-    						},
+				error: function() {
+							alert("전송 실패~~");
+				}
     		});
     	}
     	
@@ -85,54 +89,42 @@
     			return false;
     		}
     		
-    		$.ajax(function() {
+    		$.ajax({
     			type: 		"post",
     			url: 		"${ctxPath}/ajaxIdSearch3",//서블릿에서 dispatcher로 이동할 jsp지정안함
     			data: 		{mid : mid},
-				//contextType:	"application/json",//생략가능(default ?)
+				contextType:	"application/json",//생략가능(default ?)
 				//charset:		"utf-8", //xml에서 설정했으면 생략
     			success: 	function(resData) {
-    							alert("성공적으로 갔다왔음3");
-    							let arrData = resData.split('/');//response로 받은 파라미터는 1개만 넘어옴, 여러개 받고자 할 때는 편집해서 보낼 것(객체로 못받음ㄴ).
     							$("#demo").html(resData);//$('#demo').innerHtml=resData 와 같음
-    							userSearch(arrData[0], arrData[1], arrData[2], arrData[3]);
+     							let arrData = resData.split("/");//response로 받은 파라미터는 1개만 넘어옴, 여러개 받고자 할 때는 편집해서 보낼 것(객체로 못받음,null도 못받음).
+     							if (null!=arrData[0] && null!=arrData[1] && null!=arrData[2] && null!=arrData[3])	
+    								userSearch(arrData[0], arrData[1], arrData[2], arrData[3]);
     						},
     						error: function() {
-    							alert("전송 실패~~")
-    						},
+    							alert("전송 실패~~");
+    						}
     		});
     	}
-    	
-    	//개별자료조회 출력
-    	function userSearch(mid, name, age, address) {
-    		$("#userId").val(mid);
-    		$("#userName").val(name);
-    		$("#userAge").val(age);
-    		$("#userAddress").val(address);
-    	}
-    	//전체유저 조회
-    	function userList() {
-    		
-    	}
+
     	//유저 등록
     	function userInput() {
     		let mid = $("#userId").val();
     		let name = $("#userName").val();
     		let age = $("#userAge").val();
     		let address = $("#userAddress").val();
-    		
-    		if (''==mid || ''==name || ''==age || ''==address) {
+    		if (''==mid || ''==name) {
     			alert('아이디/성명/나이/주소를 입력하세요.');
     			$("#userId").focus();
     			return false;
     		}
     		
     		let query = {
-    				mid : mid;
-    				name : name;
-    				age : age;
+    				mid : mid,
+    				name : name,
+    				age : age,
     				address : address
-    		}
+    		};
     		
     		$.ajax({
     			type: "post",
@@ -140,7 +132,8 @@
     			data: query,
     			success: function(data) {
     				if ('1' == data) {
-    					alert('등록 성공');
+    					alert('자료를 등록했습니다');
+    					location.reload();
     				}
     				else if ('0' == data){
     					alert('등록 실패');
@@ -151,6 +144,42 @@
     			}
     		}); 
     	}
+
+    	//전체유저 조회
+    	function userList() {
+    		location.href = "${ctxPath}/userList.st";
+    	}
+    	
+    	//개별자료조회 출력
+    	function userSearch(mid, name, age, address) {
+    		$("#userId").val(mid);
+    		$("#userName").val(name);
+    		$("#userAge").val(age);
+    		$("#userAddress").val(address);
+    	}
+    	
+    	function userDelete(idx) {
+    		if ( !confirm('삭제할까요?') ) return false;
+    		
+    		$.ajax({
+    			type: "post",
+    			url: "${ctxPath}/ajaxUserDelete",
+    			data: {idx : idx},
+    			success: function(data) {
+    				if ('1' == data) {
+    					alert('자료를 삭제했습니다');
+    					location.reload();
+    				}
+    				else {
+    					alert('삭제 실패~~');
+    				}
+    			},
+    			error: function() {
+    				alert('전송오류');
+    			}
+    		});
+    	}
+    	
     </script>
     <style>
     	th {
@@ -167,7 +196,7 @@
 	<h2>AJax연습</h2>
 	<form name="searchForm">
 		아이디 : <input type="text" name="mid" id="mid"/>&nbsp;
-		<input type="button" value="아이디검색" onclick="idCheck()" class="btn btn-success"/>&nbsp;
+		<input type="button" value="아이디검색1" onclick="idCheck1()" class="btn btn-success"/>&nbsp;
 		<input type="button" value="아이디검색2" onclick="idCheck2()" class="btn btn-success"/>&nbsp;
 		<input type="button" value="아이디검색3" onclick="idCheck3()" class="btn btn-warning"/>
 	</form>
@@ -201,6 +230,7 @@
 					<input type="reset" value="다시입력"  class="btn btn-info"/>&nbsp;
 					<input type="button" value="유저전체보기" onclick="userList()" class="btn btn-info"/>&nbsp;
 				</td>
+			</tr>
 		</table>
 	</form>
 	<hr/>
@@ -209,53 +239,57 @@
 		<!-- 페이징 처리 시작 -->
 		<div class="col text-right">
 <c:if test="${pageNo > 1}">
-			<a href='/userList.st?pageNo=1' title='first'>${First}</a>
-				<a href='/userList.st?pageNo=${pageNo - 1}' title='prev'>${Prev}</a>
+			<a href='${ctxPath}/userList.st?pageNo=1' title='first'>${First}</a>
+				<a href='${ctxPath}/userList.st?pageNo=${pageNo - 1}' title='prev'>${Prev}</a>
 </c:if>
 				${pageNo}Page / ${totPage}Pages
 <c:if test="${pageNo != totPage}">
-				<a href='/userList.st?pageNo=${pageNo + 1}' title='next'>${Next}</a>
+				<a href='${ctxPath}/userList.st?pageNo=${pageNo + 1}' title='next'>${Next}</a>
 </c:if>
-			<a href='/userList.st?pageNo=${totPage}' title='last'>${Last}</a>
+			<a href='${ctxPath}/userList.st?pageNo=${totPage}' title='last'>${Last}</a>
 		</div>
 		<!-- 페이징 처리 끝 -->
-	<table class=""table table-hover">
+	<table class="table table-hover">
 		<tr>
-			<th>번호</th><th>아이디</th><th>성명</th><th>나이</th><th>주소</th>
+			<th>번호</th><th>아이디</th><th>성명</th><th>나이</th><th>주소</th><th>조회/삭제</th>
 		</tr>
 <c:forEach var="vo" items="${vos}">
 		<tr>
-			<td>${vo.idx }</td>
+			<td>${curScrStartNo}</td>
 			<td>${vo.mid }</td>
 			<td>${vo.name }</td>
 			<td>${vo.age }</td>
 			<td>${vo.address }</td>
-			<td><a href="javascript:userSearch('${vo.mid}','${vo.name}','${vo.age}','${vo.address}')" class="btn btn-secondary btn-sm">조회</a></td>
+			<td>
+				<a href="javascript:userSearch('${vo.mid}','${vo.name}','${vo.age}','${vo.address}');" class="btn btn-secondary btn-sm">조회</a>
+				<a href="javascript:userSearch('${vo.mid}','${vo.name}','${vo.age}','${vo.address}');javascript:userDelete('${vo.idx}');" class="btn btn-secondary btn-sm">삭제</a>
+			</td>
 		</tr>
+		<c:set var="curScrStartNo" value="${curScrStartNo-1}"/>
 </c:forEach>
 	</table>
 	
 		<!-- 블럭페이징 처리 시작 -->
 		<div class="text-center">
 <c:if test="${pageNo > 1}">
-			[<a href='/userList.st?pageNo=1' title='first'>첫페이지</a>]
+			[<a href='${ctxPath}/userList.st?pageNo=1' title='first'>첫페이지</a>]
 </c:if>
 <c:if test="${curBlock > 0}">
-				[<a href='/userList.st?pageNo=${(curBlock-1)*blockSize+1}' title='prevBlock'>이전블록</a>]
+				[<a href='${ctxPath}/userList.st?pageNo=${(curBlock-1)*blockSize+1}' title='prevBlock'>이전블록</a>]
 </c:if>
 <c:set var="isBreak" value="false"/>
 				<c:forEach var="i" begin="${(curBlock*blockSize)+1}" end="${(curBlock*blockSize)+blockSize}">
 			      <c:if test="${i <= totPage && i == pageNo}">
-			        [<a href="/userList.st?pageNo=${i}"><font color='red'><b>${i}</b></font></a>]
+			        [<a href="${ctxPath}/userList.st?pageNo=${i}"><font color='red'><b>${i}</b></font></a>]
 			      </c:if>
 			      <c:if test="${i <= totPage && i != pageNo}">
-			        [<a href="/userList.st?pageNo=${i}">${i}</a>]
+			        [<a href="${ctxPath}/userList.st?pageNo=${i}">${i}</a>]
 			      </c:if>
 			    </c:forEach>
 <c:if test="${curBlock < lastBlock}">
-				[<a href='/userList.st?pageNo=${(curBlock+1)*blockSize+1}' title='nextBlock'>다음블록</a>]
+				[<a href='${ctxPath}/userList.st?pageNo=${(curBlock+1)*blockSize+1}' title='nextBlock'>다음블록</a>]
 </c:if>
-			[<a href='/userList.st?pageNo=${totPage}' title='last'>마지막페이지</a>]
+			[<a href='${ctxPath}/userList.st?pageNo=${totPage}' title='last'>마지막페이지</a>]
 		</div>
 		<!-- 블럭페이징 처리 끝 -->
 </div>
