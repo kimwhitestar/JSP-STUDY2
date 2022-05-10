@@ -38,13 +38,37 @@
 				contextType:	"application/json",
 				//charset:		"utf-8", //xml에서 설정했으면 생략
 				success:		function(name) { //response로 앞에서 준 파라미터는 function함수의 파라미터로 받는다
-					alert("서버 비동기 요청,응답 성공");
-					alert("response로 받은 parameter 중 name : " + name);
+									alert("서버 비동기 요청,응답 성공");
+									alert("response로 받은 parameter 중 name : " + name);
 				},
 				error:			function() {
-					alert("서버 요청 실패~~")
+									alert("서버 요청 실패~~")
 				}
 			});
+    	}
+    	
+    	function idCheck2() {
+    		let mid = $("#mid").val();
+    		if (""==mid) {
+    			alert("아이디를 입력하세요");
+    			$("#mid").focus();
+    			return false;
+    		}
+    		
+    		$.ajax(function() {
+    			type: 		"post",
+    			url: 		"${ctxPath}/ajaxIdSearch2",//서블릿에서 dispatcher로 이동할 jsp지정안함
+    			data: 		{mid : mid},
+				//contextType:	"application/json",//생략가능(default ?)
+				//charset:		"utf-8", //xml에서 설정했으면 생략
+    			success: 	function(resData) {
+    							alert("성공적으로 갔다왔음");
+    							$("#demo").html(resData);//$('#demo').innerHtml=resData 와 같음
+    						},
+    						error: function() {
+    							alert("전송 실패~~")
+    						},
+    		});
     	}
     </script>
     <style></style>
@@ -58,7 +82,9 @@
 	<form name="searchForm">
 		아이디 : <input type="text" name="mid" id="mid"/>&nbsp;
 		<input type="button" value="아이디검색" onclick="idCheck()"/>
+		<input type="button" value="아이디검색2" onclick="idCheck2()"/>
 	</form>
+	<div id="demo"></div>
 </div>
     <%@ include file="/include/footer.jsp" %>
 </body>
