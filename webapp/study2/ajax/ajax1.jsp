@@ -93,11 +93,9 @@
 				//charset:		"utf-8", //xml에서 설정했으면 생략
     			success: 	function(resData) {
     							alert("성공적으로 갔다왔음3");
-    							let arrData = resData.split('/');
-    							$("#userId").html(arrData[0]);//$('#demo').innerHtml=resData 와 같음
-    							$("#userName").html(arrData[1]);
-    							$("#userAge").html(arrData[2]);
-    							$("#userAddress").html(arrData[3]);
+    							let arrData = resData.split('/');//response로 받은 파라미터는 1개만 넘어옴, 여러개 받고자 할 때는 편집해서 보낼 것(객체로 못받음ㄴ).
+    							$("#demo").html(resData);//$('#demo').innerHtml=resData 와 같음
+    							userSearch(arrData[0], arrData[1], arrData[2], arrData[3]);
     						},
     						error: function() {
     							alert("전송 실패~~")
@@ -111,6 +109,47 @@
     		$("#userName").val(name);
     		$("#userAge").val(age);
     		$("#userAddress").val(address);
+    	}
+    	//전체유저 조회
+    	function userList() {
+    		
+    	}
+    	//유저 등록
+    	function userInput() {
+    		let mid = $("#userId").val();
+    		let name = $("#userName").val();
+    		let age = $("#userAge").val();
+    		let address = $("#userAddress").val();
+    		
+    		if (''==mid || ''==name || ''==age || ''==address) {
+    			alert('아이디/성명/나이/주소를 입력하세요.');
+    			$("#userId").focus();
+    			return false;
+    		}
+    		
+    		let query = {
+    				mid : mid;
+    				name : name;
+    				age : age;
+    				address : address
+    		}
+    		
+    		$.ajax({
+    			type: "post",
+    			url: "${ctxPath}/ajaxUserInput",
+    			data: query,
+    			success: function(data) {
+    				if ('1' == data) {
+    					alert('등록 성공');
+    				}
+    				else if ('0' == data){
+    					alert('등록 실패');
+    				}
+    			},
+    			error: function() {
+    				alert('전송오류~~');
+    			}
+    		}); 
     	}
     </script>
     <style>
