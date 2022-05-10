@@ -39,15 +39,16 @@
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/study1/urlMapping">URL(Controller) 디렉토리패턴</a>
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.url">확장자(Controller) 디렉토리패턴</a>
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/urlMapping.um">확장자(FrontController) 디렉토리패턴</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/el1.st">EL1표기연습</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/el2.st">EL2표기연습</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl1.st">JSTL Core연습</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl2.st">JSTL Function연습</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl3.st">JSTL Format연습</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/el1.st">EL1표기 연습</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/el2.st">EL2표기 연습</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl1.st">JSTL Core 연습</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl2.st">JSTL Function 연습</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/jstl3.st">JSTL Format 연습</a>
 		      <a class="dropdown-item" href="<%=request.getContextPath()%>/study2/shaPass.st">SHA암호화(단방향암호화:복호화안됨,문제성있다고함)</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch">ajax1연습(dispathcer로 jsp갈 곳 지정안함)</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch2">ajax2연습(dispathcer로 jsp갈 곳 지정안함)</a>
-		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch3">ajax3연습(dispathcer로 jsp갈 곳 지정안함)</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/userList.st">Ajax1 연습-확장자패턴 화면깜박임 동작비교(dispathcer로 jsp설정없음)</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch?mid=user1">ajax1연습-동적ajax는 URL패턴사용(dispathcer로 jsp설정없음)</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch2?mid=user1">ajax2연습-동적ajax는 URL패턴사용(dispathcer로 jsp설정없음)</a>
+		      <a class="dropdown-item" href="<%=request.getContextPath()%>/ajaxIdSearch3?mid=user1">ajax3연습-동적ajax는 URL패턴사용(dispathcer로 jsp설정없음)</a>
 		    </div>
 		</div>
       </li>
