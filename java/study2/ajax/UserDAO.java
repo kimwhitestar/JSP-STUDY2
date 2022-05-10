@@ -21,7 +21,7 @@ public class UserDAO {
 	public int totRecCnt() {
 		int totRecCnt = 0;
 		try {
-			sql = "select count(*) as totRecCnt from board";
+			sql = "select count(*) as totRecCnt from user";
 			pstmt = conn.prepareStatement(sql);
 			rs = pstmt.executeQuery();
 			rs.next(); //ResultSet레코드움직이기(count함수는 무조건 0값조차 가져옴)
@@ -35,18 +35,22 @@ public class UserDAO {
 		return totRecCnt;
 	}
 	
-	//게시판 목록 조회
-	public List<UserVO> searchBoardList(int startIndexNo, int pageSize) {
+	//User 목록 조회
+	public List<UserVO> searchUserList(int startIndexNo, int pageSize) {
 		List<UserVO> vos = new ArrayList<>();
 		try {
-			sql = "select * from board order by idx desc limit ?, ?";
+			sql = "select * from user order by idx desc limit ?, ?";
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setInt(1, startIndexNo);
 			pstmt.setInt(2, pageSize);
 			rs = pstmt.executeQuery();
 			while (rs.next()) {
 				vo = new UserVO();
-
+				vo.setIdx(rs.getInt("idx"));
+				vo.setMid(rs.getString("mid"));
+				vo.setName(rs.getString("name"));
+				vo.setAge(rs.getString("age"));
+				vo.setAddress(rs.getString("address"));
 				vos.add(vo);
 			}
 		} catch (SQLException e) {
@@ -56,21 +60,6 @@ public class UserDAO {
 			instance.rsClose();
 		}
 		return vos;
-	}
-
-	//게시글 등록
-	public int insert(UserVO vo) {
-		int res = 0;
-		try {
-			sql = "insert into board values ( default, ?, ?, ?, ?, ?, default, default, ?, default, ? )";
-			pstmt = conn.prepareStatement(sql);
-			res = pstmt.executeUpdate();
-		} catch(SQLException e) {
-			System.out.println("SQL 에러 : " + e.getMessage());
-		} finally {
-			instance.pstmtClose();
-		}
-		return res;
 	}
 
 	public UserVO search(String mid) {
@@ -95,5 +84,20 @@ public class UserDAO {
 			instance.rsClose();
 		}
 		return vo;
+	}
+
+	//User 등록
+	public int insert(UserVO vo) {
+		int res = 0;
+		try {
+			sql = "insert into board values ( default, ?, ?, ?, ?, ?, default, default, ?, default, ? )";
+			pstmt = conn.prepareStatement(sql);
+			res = pstmt.executeUpdate();
+		} catch(SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			instance.pstmtClose();
+		}
+		return res;
 	}
 }
