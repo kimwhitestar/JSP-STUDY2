@@ -4,7 +4,7 @@ public class UserVO {
 	private int idx;
 	private String mid;
 	private String name;
-	private String age;
+	private int age;
 	private String address;
 
 	public int getIdx() {
@@ -25,10 +25,10 @@ public class UserVO {
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getAge() {
+	public int getAge() {
 		return age;
 	}
-	public void setAge(String age) {
+	public void setAge(int age) {
 		this.age = age;
 	}
 	public String getAddress() {

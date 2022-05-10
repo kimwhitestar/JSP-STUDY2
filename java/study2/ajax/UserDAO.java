@@ -49,7 +49,7 @@ public class UserDAO {
 				vo.setIdx(rs.getInt("idx"));
 				vo.setMid(rs.getString("mid"));
 				vo.setName(rs.getString("name"));
-				vo.setAge(rs.getString("age"));
+				vo.setAge(rs.getInt("age"));
 				vo.setAddress(rs.getString("address"));
 				vos.add(vo);
 			}
@@ -74,7 +74,7 @@ public class UserDAO {
 				vo.setIdx(rs.getInt("idx"));
 				vo.setMid(rs.getString("mid"));
 				vo.setName(rs.getString("name"));
-				vo.setAge(rs.getString("age"));
+				vo.setAge(rs.getInt("age"));
 				vo.setAddress(rs.getString("address"));
 			}
 		} catch (SQLException e) {
@@ -90,8 +90,12 @@ public class UserDAO {
 	public int insert(UserVO vo) {
 		int res = 0;
 		try {
-			sql = "insert into board values ( default, ?, ?, ?, ?, ?, default, default, ?, default, ? )";
+			sql = "insert into user values ( default, ?, ?, ?, ? )";
 			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMid());
+			pstmt.setString(2, vo.getName());
+			pstmt.setInt(3, vo.getAge());
+			pstmt.setString(4, vo.getAddress()==null?"default":vo.getAddress());
 			res = pstmt.executeUpdate();
 		} catch(SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());
