@@ -42,12 +42,6 @@ public class StudyController extends HttpServlet {
 			command.execute(request, response);
 			viewPage += "/study2/sha/shaPass.jsp";
 		}
-		//Ajax
-		else if (com.equals("ajx1")) {
-			command = new ajx1Command();
-			command.execute(request, response);
-			viewPage += "/study2/ajax/ajx1.jsp";
-		}
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 }
