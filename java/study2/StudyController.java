@@ -8,6 +8,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import schedule.CalendarCommand;
+
 @WebServlet("*.st")
 public class StudyController extends HttpServlet {
 	@Override
@@ -41,6 +43,50 @@ public class StudyController extends HttpServlet {
 			command = new ShaPassOkCommand();
 			command.execute(request, response);
 			viewPage += "/study2/sha/shaPass.jsp";
+		}
+		//화일upload(싱글) - cos.jar라이브러리 사용
+		else if (com.equals("upload1")) {
+			viewPage += "/study2/pdsTest/upload1.jsp";
+		}
+		//화일upload - cos.jar라이브러리 사용
+		else if (com.equals("upload1Ok")) {
+			command = new Upload1OkCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
+		//화일upload(멀티) - cos.jar라이브러리 사용
+		else if (com.equals("upload2")) {
+			viewPage += "/study2/pdsTest/upload2.jsp";
+		}
+		//화일upload - cos.jar라이브러리 사용
+		else if (com.equals("upload2Ok")) {
+			command = new Upload2OkCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
+		//화일upload(동적폼) - cos.jar라이브러리 사용
+		else if (com.equals("dynamicForm")) {
+			viewPage += "/study2/pdsTest/dynamicForm.jsp";
+		}
+		//화일upload(멀티) - cos.jar라이브러리 사용
+		else if (com.equals("upload3")) {
+			viewPage += "/study2/pdsTest/upload3.jsp";
+		}
+		//화일upload(멀티) - cos.jar라이브러리 사용
+		else if (com.equals("upload4")) {
+			viewPage += "/study2/pdsTest/upload4.jsp";
+		}
+//		//화일upload - cos.jar라이브러리 사용
+//		else if (com.equals("upload3Ok")) {
+//			command = new Upload3OkCommand();
+//			command.execute(request, response);
+//			viewPage = "/message/message.jsp";
+//		}
+		//화일download - cos.jar라이브러리 사용
+		else if (com.equals("download1")) {
+			command = new DownloadCommand();
+			command.execute(request, response);
+			viewPage += "/study2/pdsTest/download1.jsp";
 		}
 		//Ajax1-UserList
 		else if (com.equals("userList")) {
