@@ -62,8 +62,7 @@
 						${st.count}
 					</td>
 					<!-- 주간 줄바꿈 -->
-					<c:if test="cnt % 7 == 0"><tr></tr></c:if>
-					<c:set var="cnt" value="${cnt + 1}" />
+					<c:if test="${cnt % 7 == 0}"><tr></tr></c:if>
 					<c:set var="cnt" value="${cnt + 1}" />
 				</c:forEach>
 				
