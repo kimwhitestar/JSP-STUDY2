@@ -39,13 +39,10 @@
 			</tr>
 			<tr>
 				<td colspan="2" class="text-center">
-					<input type="button" value="휴지통으로" onclick="location.href='emailboxMessage.m?idx=${vo.idx}&mSw=${param.mFlg}';" class="btn btn-success" />
+					<input type="button" value="답장쓰기" onclick="location.href='emailboxMessage.m?mSw=0&nFlg=11';" class="btn btn-success" />&nbsp;
+					<input type="button" value="휴지통으로" onclick="location.href='emailboxGabegeOk.m?idx=${vo.idx}&mSw=${param.mFlg}';" class="btn btn-success" />
 					<input type="button" value="돌아가기" onclick="location.href='emailboxMessage.m?mSw=1&nFlg=11';" class="btn btn-info" />
 				</td>
-			</tr>
-			<tr>
-				<th>보내는 사람</th>
-				<td></td>
 			</tr>
 		</table>
 	</form>
