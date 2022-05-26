@@ -1,6 +1,7 @@
 package emailbox;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -10,33 +11,27 @@ import javax.servlet.http.HttpSession;
 import emailbox.database.EmailboxDAO;
 import emailbox.database.EmailboxVO;
 
-public class EmailboxInputOkCommand implements EmailboxInterface {
+public class EmailboxMainCommand implements EmailboxInterface {
 
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession();
 		//String sMid = (String) session.getAttribute("sMid");
+		int idx = request.getParameter("idx")==null?1:Integer.parseInt(request.getParameter("idx"));
 		int mSw = request.getParameter("mSw")==null?1:Integer.parseInt(request.getParameter("mSw"));
 		int mFlg = (request.getParameter("mFlg")==null || request.getParameter("mFlg").equals(""))?1:Integer.parseInt(request.getParameter("mFlg"));
-		String sendId = request.getParameter("sendId");
-		String receiveId = request.getParameter("receiveId");
-		String title = request.getParameter("title");
-		String content = request.getParameter("content");
-		
+
 		EmailboxDAO dao = new EmailboxDAO();
-		EmailboxVO vo = new EmailboxVO();
-		vo.setSendId(sendId);
-		vo.setReceiveId(receiveId);
-		vo.setTitle(title);
-		vo.setContent(content);
 		
-		int res = dao.insert(vo);
-		if (1 == res) {
-			request.setAttribute("msg", "emailboxInputOk");
-			request.setAttribute("url", request.getContextPath() + "/emailboxMain.m?mSw=3");
-		} else {
-			request.setAttribute("msg", "emailboxInputNo");
-			request.setAttribute("url", request.getContextPath() + "/emailboxMain.m?mSw=4");
+		if ( 6 == mSw ) { //메세지 상세보기(제목클릭) 처리부문(mSw가 6번으로 넘어온다)
+			EmailboxVO vo = dao.search(idx, mFlg);
+			request.setAttribute("vo", vo);
+			request.setAttribute("mFlg", mFlg);
+		} else { //전체메세지
+			List vos = dao.searchEmailboxList("", mSw);
+			request.setAttribute("vos", vos);
+			request.setAttribute("mFlg", mFlg);
 		}
+		request.setAttribute("mSw", mSw);
 	}
 }

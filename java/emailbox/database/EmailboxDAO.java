@@ -147,7 +147,7 @@ public class EmailboxDAO {
 			if ( 11 == mSw ) {
 				sql = "update emailbox set receiveSw = 'g' where idx = ? ";
 			}
-			else {
+			else { //mSw 12
 				sql = "update emailbox set sendSw = 'g' where idx = ? ";
 			}
 			pstmt = conn.prepareStatement(sql);
@@ -159,5 +159,34 @@ public class EmailboxDAO {
 			instance.pstmtClose();
 		}
 		return res;
+	}
+
+	//휴지통 비우기 receiveSw, sendSw 모두 'x'
+	public boolean deleteAll(String mid) {
+		boolean isDeleted = true;
+		int res = 0;
+		try {
+			sql = "update emailbox set receiveSw = 'x' where receiveId = ? and receiveSw = 'g' ";
+			pstmt = conn.prepareStatement(sql);
+			res = pstmt.executeUpdate();
+			instance.pstmtClose();
+			if (1 > res) isDeleted = false;
+			
+			sql = "update emailbox set sendSw = 'x' where sendId = ? and sendSw = 'g' ";
+			pstmt = conn.prepareStatement(sql);
+			res = pstmt.executeUpdate();
+			instance.pstmtClose();
+			if (1 > res) isDeleted = false;
+
+			sql = "delete from emailbox where receiveSw = 'x' and sendSw = 'x' ";
+			pstmt = conn.prepareStatement(sql);
+			res = pstmt.executeUpdate();
+			if (1 > res) isDeleted = false;
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			instance.pstmtClose();
+		}
+		return isDeleted;
 	}
 }

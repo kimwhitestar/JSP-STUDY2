@@ -23,10 +23,10 @@ public class EmailboxController extends HttpServlet {
 //		int level = session.getAttribute("sLevel")==null ? 99 : (int) session.getAttribute("sLevel");
 		
 		//이메일 main
-		if (com.equals("emailboxMessage")) {
-			command = new EmailboxMessageCommand();
+		if (com.equals("emailboxMain")) {
+			command = new EmailboxMainCommand();
 			command.execute(request, response);
-			viewPage += "/emailbox/emailboxMessage.jsp";
+			viewPage += "/emailbox/emailboxMain.jsp";
 		}
 		//이메일 작성
 		else if (com.equals("emailboxInputOk")) {
@@ -40,6 +40,19 @@ public class EmailboxController extends HttpServlet {
 			command.execute(request, response);
 			viewPage = "/message/message.jsp";
 		}
+		//휴지통 메세지 삭제
+		else if (com.equals("emailboxDeleteOk")) {
+			command = new EmailboxDeleteOkCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
+		//휴지통 비우기
+		else if (com.equals("emailboxDeleteAllOk")) {
+			command = new EmailboxDeleteAllOkCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
+		
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 }

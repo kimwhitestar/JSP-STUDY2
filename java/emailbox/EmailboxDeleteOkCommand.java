@@ -8,19 +8,23 @@ import javax.servlet.http.HttpServletResponse;
 
 import emailbox.database.EmailboxDAO;
 
-public class EmailboxGabegeOkCommand implements EmailboxInterface {
+public class EmailboxDeleteOkCommand implements EmailboxInterface {
+
 	@Override
 	public void execute(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		int idx = request.getParameter("idx")==null?1:Integer.parseInt(request.getParameter("idx"));
-		int mSw = request.getParameter("mSw")==null?1:Integer.parseInt(request.getParameter("mSw"));
+		int mFlg = request.getParameter("mFlg")==null?1:Integer.parseInt(request.getParameter("mFlg"));
 
 		EmailboxDAO dao = new EmailboxDAO();
-		int res = dao.updateGabege(idx, mSw);
+		int res = dao.updateGabege(idx, mFlg);
 		if (1 == res) {
-			request.setAttribute("msg", "emailboxGabegeOk");
+			response.getWriter().write("emailboxDeleteOk");
+			//request.setAttribute("msg", "emailboxDeleteOk");
 		} else {
-			request.setAttribute("msg", "emailboxGabegeNo");
+			response.getWriter().write("emailboxDeleteNo");
+			//request.setAttribute("msg", "emailboxDeleteNo");
 		}
-		request.setAttribute("url", request.getContextPath() + "/emailboxMain.m?mSw=1");
+		//request.setAttribute("url", request.getContextPath() + "/emailboxMain.m?mSw=1");
+
 	}
 }
