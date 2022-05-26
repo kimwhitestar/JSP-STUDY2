@@ -63,7 +63,7 @@
 				<td colspan="2" class="text-center">
 					<input type="button" value="메세지 전송" onclick="checkemailboxInput()" class="btn btn-success" />
 					<input type="reset" value="다시쓰기" class="btn btn-secondary" />
-					<input type="button" value="돌아가기" onclick="/emailboxList.m" class="btn btn-info" />
+					<input type="button" value="돌아가기" onclick="location.href='emailboxMain.m?mSw=1&nFlg=11" class="btn btn-info" />
 				</td>
 			</tr>
 			<tr>

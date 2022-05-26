@@ -12,6 +12,31 @@
     <script>
     	'use strict';
     	//4setTimeout("location.reload()", 1000*5);//5초 간격 새로고침
+    	function emailboxDelete(int idx) {
+    		if (!confirm('메세시를 삭제할까요?')) return;
+				
+    		let query = {
+    				idx : idx,
+    				mFlg : 12
+    		};
+    		
+    		$.ajax({
+    			type 	: "post",
+    			url 	: "${ctxPath}/emailboxDeleteOk.m",
+    			data	: query,
+    			success : function(res) {
+    				if ("emailboxDeleteOk" == res) {
+        				alert("메세지를 휴지통으로 보냈습니다");
+        				location.reload();
+    				} else {
+        				alert("메세지 휴지통 전송 실패~~");
+    				}
+    			},
+    			error : function() {
+    				alert("전송 오류~~");
+    			}
+    		});
+    	}
      </script>
 </head>
 <body>
@@ -38,8 +63,10 @@
 					<c:if test="${3 == mSw || 4 == mSw}">${vo.receiveId}</c:if>
 				</td>
 				<td>
-					<a href="emailboxMessage?mSw=6&idx=${vo.idx}&mFlg=${param.mFlg}">${vo.title}</a>
-					&nbsp;<c:if test="${'n' == vo.receiveSw}"><font color="red">new</font></c:if>
+					<a href="emailboxMain?mSw=6&idx=${vo.idx}&mFlg=${param.mFlg}">${vo.title}</a>
+					&nbsp;
+					<c:if test="${'n' == vo.receiveSw}"><font color="red">new</font></c:if>
+					<c:if test="${ 3 == mSw }"><input type="button" value="삭제" onclick="javascript:emailboxDelete(${vo.idx})"/></c:if>
 				</td>
 				<td>
 					<c:if test="${24 > vo.nReceiveDate}">${fn:substring(vo.receiveDate, 11, 19)}</c:if>
