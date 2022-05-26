@@ -70,6 +70,14 @@
     <!--/pds/자료실 - 화일업로드, 화일다운로드, 화일삭제-->
     else if (msg == 'pdsInputOk') msg = "파일이 등록되었습니다";
     else if (msg == 'pdsInputNo') msg = "파일 등록 실패~~";
+    <!--/schedule/일정관리 - CRUD -->
+    else if (msg == 'scheduleUpdateOk') msg = "스케쥴이 수정됬습니다";
+    else if (msg == 'scheduleUpdateNo') msg = "스케쥴 수정 실패~~";
+    <!--/emailbox/이메일박스 - CRUD -->
+    else if (msg == 'emailboxGabegeOk') msg = "이메일을 휴지통으로 보냈습니다";
+    else if (msg == 'emailboxGabegeNo') msg = "휴지통 전송 실패~~";
+    else if (msg == 'emailboxInputOk') msg = "이메일을 보냈습니다";
+    else if (msg == 'emailboxInputNo') msg = "이메일 보내기 실패~~";
     
     alert(msg);
     if ('${url}' != '') location.href = '${url}';
