@@ -31,15 +31,17 @@ public class EmailboxDAO {
 			} else if ( 4 == mSw ) { //수신확인
 				sql = "select * from emailbox where sendId = ? and receiveSw = 'n' order by idx desc limit ?, ? ";
 			} else if ( 5 == mSw ) { //휴지통
-				sql = "";
-			} else  { //휴지통
+				sql = "select * from emailbox where (receiveId = ? and receiveSw = 'g') or (sendId = ? and sendSw = 'g') order by idx desc ";
+			} else  { // 0 == mSw 신규메세지 작성이기에 그냥 리턴
 				return vos;
 			}
 			vos = new ArrayList<>();
 			TimeDiff diff = new TimeDiff();
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, mid);
-			pstmt.setInt(2, mSw);
+			if (5 == mSw) {
+				pstmt.setString(2, mid);
+			}
 			rs = pstmt.executeQuery();
 			while (rs.next()) { //1개 검색된 ResultSet DTO의 레코드로 이동 
 				vo = new EmailboxVO();
@@ -130,6 +132,26 @@ public class EmailboxDAO {
 			pstmt.setString(++idx, vo.getContent());
 			pstmt.setString(++idx, vo.getSendId());
 			pstmt.setString(++idx, vo.getReceiveId());
+			res = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("SQL 에러 : " + e.getMessage());
+		} finally {
+			instance.pstmtClose();
+		}
+		return res;
+	}
+
+	public int updateGabege(int idx, int mSw) {
+		int res = 0;
+		try {
+			if ( 11 == mSw ) {
+				sql = "update emailbox set receiveSw = 'g' where idx = ? ";
+			}
+			else {
+				sql = "update emailbox set sendSw = 'g' where idx = ? ";
+			}
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setInt(1, idx);
 			res = pstmt.executeUpdate();
 		} catch (SQLException e) {
 			System.out.println("SQL 에러 : " + e.getMessage());

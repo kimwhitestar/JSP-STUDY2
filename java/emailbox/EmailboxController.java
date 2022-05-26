@@ -22,15 +22,21 @@ public class EmailboxController extends HttpServlet {
 		HttpSession session = request.getSession();
 //		int level = session.getAttribute("sLevel")==null ? 99 : (int) session.getAttribute("sLevel");
 		
-		//로그인
+		//이메일 main
 		if (com.equals("emailboxMessage")) {
 			command = new EmailboxMessageCommand();
 			command.execute(request, response);
 			viewPage += "/emailbox/emailboxMessage.jsp";
 		}
-		//로그인OK
+		//이메일 작성
 		else if (com.equals("emailboxInputOk")) {
 			command = new EmailboxInputOkCommand();
+			command.execute(request, response);
+			viewPage = "/message/message.jsp";
+		}
+		//휴지통으로
+		else if (com.equals("emailboxGabegeOk")) {
+			command = new EmailboxGabegeOkCommand();
 			command.execute(request, response);
 			viewPage = "/message/message.jsp";
 		}
